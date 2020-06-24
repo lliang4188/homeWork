@@ -1,0 +1,2 @@
+# homeWork
+testGit‘s function
