@@ -1,9 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 // console.log(path.resolve());
 // console.log(path.join(__dirname, './dist'));
 const config = {
+  mode: 'development',
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',
@@ -36,11 +39,25 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      // 打包后文件名
       filename: 'index.html',
+      // 需要打包入口HTML文件
       template: 'template.html'
     }),
-    new webpack.HotModuleReplacementPlugin()
-  ]
+    // 在没有HTML文件时帮助创建HTML文件
+    new webpack.HotModuleReplacementPlugin(),
+    // 清楚无用的构建文件
+    new CleanWebpackPlugin(),
+    // 复制静态资源
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.join(__dirname, 'assets'),
+          to: 'assets'
+        }
+      ]
+    })
+  ],
 
 };
 module.exports = config;
