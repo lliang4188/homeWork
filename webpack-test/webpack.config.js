@@ -3,11 +3,17 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const TerserJSPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin= require('optimize-css-assets-webpack-plugin');
 // console.log(path.resolve());
 // console.log(path.join(__dirname, './dist'));
 const config = {
   mode: 'development',
   entry: './src/index.js',
+  optimization: {
+    minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})]
+  },
   output: {
     filename: 'bundle.js',
     path: path.join(__dirname, './dist')
@@ -16,7 +22,7 @@ const config = {
     rules: [
       {
         test: /\.(scss|sass)$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
@@ -31,6 +37,9 @@ const config = {
       },{
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         use: ['file-loader']
+      },{
+        test:/\.js$/,
+        loader: 'babel-loader'
       }
     ]
   },
@@ -56,7 +65,11 @@ const config = {
           to: 'assets'
         }
       ]
-    })
+    }),
+     new MiniCssExtractPlugin({
+       filename: '[name].css',
+       chunkFilename: '[id].css',
+     })
   ],
 
 };
