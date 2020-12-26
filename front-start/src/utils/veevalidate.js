@@ -1,6 +1,6 @@
 import { from } from "core-js/fn/array";
 import { extend, localize } from 'vee-validate'
-import { required, email, min, max, length, confirmed } from 'vee-validate/dist/rules'
+import { required, email, min, max, length, confirmed, alpha_dash } from 'vee-validate/dist/rules'
 
 import zh from 'vee-validate/dist/locale/zh_CN.json'
 
@@ -10,6 +10,7 @@ extend('min', min)
 extend('max', max)
 extend('length', length)
 extend('confirmed', confirmed)
+extend('alpha_dash', alpha_dash)
 
 localize('zh_CN', {
     messages: {

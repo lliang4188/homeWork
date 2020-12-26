@@ -7,6 +7,7 @@ class PublicController {
   constructor() {} 
   async getCaptcha(ctx) {
     const body = ctx.request.query
+    console.log(body.sid)
     const newCaptca = svgCaptcha.create({
       size: 4,
       ignoreChars: '0o1il',
@@ -15,9 +16,11 @@ class PublicController {
       width: 150,
       height: 38,
     })
+    console.log(newCaptca)
     // 保存图片验证码数据， 设置超时时间， 单位： s
     // 设置图片验证码超时10分钟
-    setValue(body.cid, newCaptca.text, 10 * 60)
+    // setValue(body.sid, newCaptca.text)
+    setValue(body.sid, newCaptca.text, 10 * 60)
    
     ctx.body = {
       code: 200,

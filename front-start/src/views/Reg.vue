@@ -35,7 +35,7 @@
                 </div>
                 <div class="layui-form-item">
                   <label for="L_username" class="layui-form-label">昵称</label>
-                  <validation-provider name="name" rules="required|min:4" v-slot="{errors}">
+                  <validation-provider name="name" rules="required|min:4|alpha_dash" v-slot="{errors}">
                     <div class="layui-input-inline">
                       <input
                         type="text"
@@ -95,7 +95,7 @@
                   </validation-provider>
                 </div>
                 <div class="layui-form-item">
-                  <valodation-previder rules="required|length:4" v-slot="{errors}">
+                  <validation-provider rules="required|length:4" v-slot="{errors}">
                     <div class="layui-row">
                       <label for="L_vercode" class="layui-form-label">验证码</label>
                       <div class="layui-input-inline">
@@ -115,7 +115,7 @@
                     <div class="layui-row">
                       <span style="color: #c00;">{{ errors[0] }}</span>
                     </div>
-                  </valodation-previder>     
+                  </validation-provider>     
                 </div>
                 <div class="layui-form-item">
                   <button class="layui-btn" lay-filter="*" lay-submit>立即注册</button>
